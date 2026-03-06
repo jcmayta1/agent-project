@@ -1,0 +1,103 @@
+{
+  "bundle_name": "assignment2_champaign_bundle",
+  "generated_at": "2026-03-06T05:25:38.541266",
+  "description": "Multi-dataset bundle for Champaign, IL field set",
+  "coordinate_system": "EPSG:4326 (WGS84)",
+  "region": "Champaign County, Illinois, USA",
+  "outputs": [
+    {
+      "file": "field_boundaries.geojson",
+      "skill": "field-boundaries",
+      "input_files": [
+        "/workspaces/agent-project/data/field-boundaries/champaign_il_50fields_EPSG4326.geojson"
+      ],
+      "parameters": {
+        "source": "USDA Crop Sequence Boundaries",
+        "region": "Champaign, IL",
+        "count": 50,
+        "crs": "EPSG:4326"
+      },
+      "source_dataset": "USDA Crop Sequence Boundaries (fiboa format)",
+      "description": "Field boundary polygons with crop type and area"
+    },
+    {
+      "file": "soil_summary.csv",
+      "skill": "ssurgo-soil",
+      "input_files": [
+        "/workspaces/agent-project/data/field-boundaries/champaign_il_50fields_EPSG4326.geojson"
+      ],
+      "parameters": {
+        "attributes": [
+          "om_pct",
+          "ph_water",
+          "awc_r",
+          "drainagecl",
+          "claytotal_r",
+          "sandtotal_r",
+          "silttotal_r",
+          "dbthirdbar_r",
+          "cec7_r"
+        ]
+      },
+      "source_dataset": "USDA NRCS SSURGO (Soil Data Access API)",
+      "source_url": "https://sdmdataaccess.sc.egov.usda.gov/",
+      "description": "Soil properties for each field - Sample data based on typical Champaign County, IL soil properties (Drummer/Stockland series)"
+    },
+    {
+      "file": "weather_2020_2024.csv",
+      "skill": "nasa-power-weather",
+      "input_files": [
+        "/workspaces/agent-project/data/field-boundaries/champaign_il_50fields_EPSG4326.geojson"
+      ],
+      "parameters": {
+        "start_date": "2020-01-01",
+        "end_date": "2024-12-31",
+        "parameters": [
+          "T2M_MIN",
+          "T2M_MAX",
+          "T2M",
+          "PRECTOTCORR",
+          "ALLSKY_SFC_SW_DWN",
+          "RH2M",
+          "WS10M"
+        ]
+      },
+      "source_dataset": "NASA POWER (Prediction Of Worldwide Energy Resources)",
+      "source_url": "https://power.larc.nasa.gov/api/",
+      "description": "Daily weather data for fields including temperature, precipitation, solar radiation",
+      "years_included": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ]
+    },
+    {
+      "file": "cdl_2020_2024_summary.csv",
+      "skill": "cdl-cropland",
+      "input_files": [
+        "/workspaces/agent-project/data/field-boundaries/champaign_il_50fields_EPSG4326.geojson"
+      ],
+      "parameters": {
+        "years": [
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ]
+      },
+      "source_dataset": "USDA NASS Cropland Data Layer (CDL)",
+      "source_url": "https://croplandcros.scinet.usda.gov/",
+      "description": "Annual crop type classifications for fields - Downloaded from USDA NASS CDL",
+      "years_included": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ]
+    }
+  ]
+}
